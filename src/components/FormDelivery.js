@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import storageKey from "../key/storage.key";
 
-const FormDelivery = (props) => {
+const FormDelivery = () => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [count, setCount] = useState(0);
@@ -19,11 +19,11 @@ const FormDelivery = (props) => {
         let obj = localStorage.getItem(storageKey.storeKey);
         let summary = JSON.parse(obj)
 
-        if (summary.formDelivery?.email !== undefined ||
-            summary.formDelivery?.phoneNumber !== undefined ||
-            summary.formDelivery?.deliveryAddress !== undefined ||
-            summary.formDelivery?.dsName !== undefined ||
-            summary.formDelivery?.dsPhoneNumber !== undefined
+        if (summary.formDelivery.email !== undefined ||
+            summary.formDelivery.phoneNumber !== undefined ||
+            summary.formDelivery.deliveryAddress !== undefined ||
+            summary.formDelivery.dsName !== undefined ||
+            summary.formDelivery.dsPhoneNumber !== undefined
         ) {
             setDataForm(summary.formDelivery);
         }

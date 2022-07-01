@@ -35,7 +35,7 @@ export default function Delivery() {
             <div className="flex justify-between pl-3 pr-0 md:pr-10">
                 <Title name="Delivery Details"></Title>
                 <div
-                    className="hidden pb-3 md:inline-flex items-center font-semibold color-gray"
+                    className="hidden pb-6 md:inline-flex items-center font-semibold color-gray"
                     onClick={() => {
                         let value = !activeDs;
                         setState(value);

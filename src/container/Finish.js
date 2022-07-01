@@ -29,7 +29,15 @@ export default function Finish() {
                         className="font-semibold cursor-pointer w-full md:w-fit color-gray mb-5 md:mb-0"
                         onClick={() => {
                             let payload = {
-                                formDelivery: {},
+                                formDelivery: {
+                                    activeDs: false,
+                                    deliveryAddress: "",
+                                    dsName: "",
+                                    dsPhoneNumber: "",
+                                    email: "",
+                                    phoneNumber: "",
+                                    code: "",
+                                },
                                 activeShipment: {},
                                 activePayment: {},
                             }

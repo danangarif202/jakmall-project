@@ -17,7 +17,15 @@ class App extends Component {
     let summary = JSON.parse(obj)
     if (summary === null || summary === undefined) {
       let payload = {
-        formDelivery: {},
+        formDelivery: {
+          activeDs: false,
+          deliveryAddress: "",
+          dsName: "",
+          dsPhoneNumber: "",
+          email: "",
+          phoneNumber: "",
+          code: "",
+        },
         activeShipment: {},
         activePayment: {},
       }
@@ -31,13 +39,9 @@ class App extends Component {
     return (
       <Router>
         <Routes>
-          <Route exact path="/" element={<Delivery />}></Route>
-        </Routes>
-        <Routes>
-          <Route path="/payment" element={<Payment />}></Route>
-        </Routes>
-        <Routes>
-          <Route path="/finish" element={<Finish />}></Route>
+          <Route index path="/" element={<Delivery />}></Route>
+          <Route path="payment" element={<Payment />}></Route>
+          <Route path="finish" element={<Finish />}></Route>
         </Routes>
       </Router>
     );
