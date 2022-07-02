@@ -1,11 +1,9 @@
-import { useEffect, useState, useRef } from "react";
-import { useForm } from 'react-hook-form';
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
 import storageKey from "../key/storage.key";
 
 const Summary = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const history = useNavigate();
     const [summary, setState] = useState({});
 
@@ -17,7 +15,7 @@ const Summary = () => {
     const submitButton = (type) => {
         let summary = JSON.parse(localStorage.getItem(storageKey.storeKey));
         if (type === "payment") {
-            if ((summary.activeShipment.name != undefined && summary.activePayment.name != undefined)) {
+            if ((summary.activeShipment.name !== undefined && summary.activePayment.name !== undefined)) {
                 let code = GenerateCode();
                 summary.formDelivery.code = code;
                 const dataStr = JSON.stringify(summary);
@@ -25,7 +23,22 @@ const Summary = () => {
                 history("/finish");
             }
         } else {
-            history("/payment");
+            let e = summary.formDelivery;
+            let actionDelivery = false;
+            if (e.activeDs) {
+                actionDelivery = (e.email !== "" &&
+                    e.phoneNumber !== "" &&
+                    e.deliveryAddress !== "" &&
+                    e.dsName !== "" &&
+                    e.dsPhoneNumber !== ""
+                );
+            } else {
+                actionDelivery = (e.email !== "" &&
+                    e.phoneNumber !== "" &&
+                    e.deliveryAddress !== ""
+                );
+            }
+            actionDelivery && history("/payment");
         }
     }
 
@@ -49,14 +62,25 @@ const Summary = () => {
     let titleSubmitButton = "Continue to Payment"
     let statusButton = true;
     if (pathname === "payment") {
-        titleSubmitButton = "Pay with " + (summary?.activePayment?.name != undefined ? summary?.activePayment?.name : "")
-        statusButton = summary?.activeShipment?.name != undefined && summary?.activePayment?.name != undefined;
+        titleSubmitButton = "Pay with " + (summary?.activePayment?.name !== undefined ? summary?.activePayment?.name : "")
+        statusButton = summary?.activeShipment?.name !== undefined && summary?.activePayment?.name !== undefined;
     } else if (pathname === "finish") {
         titleSubmitButton = null
+    } else {
+        // if (summary?.formDelivery?.activeDs) {
+        //     statusButton = (summary?.formDelivery?.email !== "" &&
+        //         summary?.formDelivery?.phoneNumber !== "" &&
+        //         summary?.formDelivery?.deliveryAddress !== "" &&
+        //         summary?.formDelivery?.dsName !== "" &&
+        //         summary?.formDelivery?.dsPhoneNumber !== ""
+        //     );
+        // } else {
+        //     statusButton = (summary?.formDelivery?.email !== "" &&
+        //         summary?.formDelivery?.phoneNumber !== "" &&
+        //         summary?.formDelivery?.deliveryAddress !== ""
+        //     );
+        // }
     }
-
-    let statusPayment = summary?.activeShipment?.name != undefined && summary?.activePayment?.name != undefined;
-    let statusShipment = true;
 
     return (
         <>
@@ -104,7 +128,7 @@ const Summary = () => {
                         </div>
                     </div>
 
-                    {titleSubmitButton != null &&
+                    {titleSubmitButton !== null &&
                         <div
                             onClick={() => {
                                 submitButton(pathname);

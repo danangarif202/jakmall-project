@@ -1,5 +1,6 @@
 import { Component } from "react";
 import MainLayout from "../components/MainLayout";
+import CurrencyFormat from "react-currency-format";
 import Title from "../components/Title";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -100,7 +101,7 @@ class Payment extends Component {
                             <div className="flex justify-between items-center">
                                 <div>
                                     <div className="font-semibold text-sm">{e.name}</div>
-                                    <div className="font-bold">{e.price}</div>
+                                    <div className="font-bold"><CurrencyFormat value={e.price} displayType={'text'} thousandSeparator={true} /></div>
                                 </div>
                                 {activeShipment.name === e.name && <div><FontAwesomeIcon icon={faCheck} className="my-auto color-icon-payment"></FontAwesomeIcon></div>}
                             </div>

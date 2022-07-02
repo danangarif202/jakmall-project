@@ -4,7 +4,7 @@ import storageKey from "../key/storage.key";
 
 const FormDelivery = () => {
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [count, setCount] = useState(0);
     const [activeDs, setState] = useState(false);
     const [dataForm, setDataForm] = useState({
@@ -78,7 +78,8 @@ const FormDelivery = () => {
                             className="w-full border p-3 focus:border-orange-400 focus:outline-none"
                             onChange={setDataLocal}
                         />
-                        {errors.email && <span>This field is required</span>}
+                        {errors.email && errors.email.type === 'required' && <span>This is required</span>}
+                        {errors.email && errors.email.type === 'pattern' && <span>Wrong email format</span>}
 
                         <input
                             {...register("phoneNumber", { required: true, minLength: 6, maxLength: 20, pattern: /^[0-9]+$/ })}
@@ -87,15 +88,10 @@ const FormDelivery = () => {
                             className="w-full border p-3 mt-2 focus:border-orange-400 focus:outline-none"
                             onChange={setDataLocal}
                         />
-                        {errors.phoneNumber != undefined ?
-                            errors.phoneNumber.type === 'maxLength' ?
-                                <span>Maksimal 20 digit</span>
-                                :
-                                errors.phoneNumber.type === 'minLength' ?
-                                    <span>Minimal 6 digit</span>
-                                    :
-                                    <span>This field is required</span>
-                            : null}
+                        {errors.phoneNumber && errors.phoneNumber.type === 'required' && <span>This is required</span>}
+                        {errors.phoneNumber && errors.phoneNumber.type === 'pattern' && <span>Wrong phone number format</span>}
+                        {errors.phoneNumber && errors.phoneNumber.type === 'minLength' && <span>Minimal 6 digit</span>}
+                        {errors.phoneNumber && errors.phoneNumber.type === 'maxLength' && <span>Maksimal 20 digit</span>}
 
                         <textarea
                             {...register("deliveryAddress", { required: true, maxLength: 120 })}
@@ -106,13 +102,10 @@ const FormDelivery = () => {
                             className="w-full border p-3 mt-2 focus:border-orange-400 focus:outline-none"
                         />
                         <div className='flex justify-between'>
-                            <div className=''>
-                                {errors.deliveryAddress != undefined ?
-                                    errors.deliveryAddress.type === 'maxLength' ?
-                                        <span>Maksimal 120 character</span>
-                                        :
-                                        <span>This field is required</span>
-                                    : null}</div>
+                            <div>
+                                {errors.deliveryAddress && errors.deliveryAddress.type === 'required' && <span>This is required</span>}
+                                {errors.deliveryAddress && errors.deliveryAddress.type === 'maxLength' && <span>Maksimal 120 character</span>}
+                            </div>
                             <div className='text-sm'>{count > 0 && `${count}/120`}</div>
                         </div>
 
@@ -137,7 +130,8 @@ const FormDelivery = () => {
 
                     <div className="w-full md:w-1/2 py-2 px-2 md:px-4">
                         <input
-                            {...register("dsName", { required: activeDs })} disabled={!activeDs}
+                            {...register("dsName", { required: activeDs })}
+                            disabled={!activeDs}
                             placeholder="Dropshipper name"
                             value={dataForm.dsName}
                             onChange={setDataLocal}
@@ -146,21 +140,17 @@ const FormDelivery = () => {
                         {errors.dsName && <span>This field is required</span>}
 
                         <input
-                            {...register("dsPhoneNumber", { required: activeDs })} disabled={!activeDs}
+                            {...register("dsPhoneNumber", { required: activeDs, minLength: 6, maxLength: 20, pattern: /^[0-9]+$/ })}
+                            disabled={!activeDs}
                             placeholder="Dropshipper phone number"
                             value={dataForm.dsPhoneNumber}
                             onChange={setDataLocal}
                             className="w-full border p-3 mt-2 focus:border-orange-400 focus:outline-none"
                         />
-                        {errors.dsPhoneNumber != undefined ?
-                            errors.dsPhoneNumber.type === 'maxLength' ?
-                                <span>Maksimal 20 digit</span>
-                                :
-                                errors.dsPhoneNumber.type === 'minLength' ?
-                                    <span>Minimal 6 digit</span>
-                                    :
-                                    <span>This field is required</span>
-                            : null}
+                        {errors.dsPhoneNumber && errors.dsPhoneNumber.type === 'required' && <span>This is required</span>}
+                        {errors.dsPhoneNumber && errors.dsPhoneNumber.type === 'pattern' && <span>Wrong phone number format</span>}
+                        {errors.dsPhoneNumber && errors.dsPhoneNumber.type === 'minLength' && <span>Minimal 6 digit</span>}
+                        {errors.dsPhoneNumber && errors.dsPhoneNumber.type === 'maxLength' && <span>Maksimal 20 digit</span>}
                     </div>
                 </form>
             </div>

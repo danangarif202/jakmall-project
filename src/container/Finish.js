@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "../components/MainLayout";
 import Title from "../components/Title";
@@ -23,7 +23,7 @@ export default function Finish() {
             <div className="flex min-h-full items-center justify-center">
                 <div className="text-center md:text-left">
                     <Title name="Thank you"></Title>
-                    <div className="">Order ID : {summary?.formDelivery?.code}</div>
+                    <div className="font-semibold">Order ID : {summary?.formDelivery?.code}</div>
                     <div className="mb-16 color-gray">Your order will be delivered {summary?.activeShipment?.estimate} with {summary?.activeShipment?.name}</div>
                     <div
                         className="font-semibold cursor-pointer w-full md:w-fit color-gray mb-5 md:mb-0"

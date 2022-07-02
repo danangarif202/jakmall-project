@@ -77,7 +77,7 @@ class MainLayout extends Component {
                         </Step>
                         <Content className="flex-wrap">
                             <Link to={`/`} className="w-full h-fit mt-2 mb-5 font-semibold color-gray">
-                                {titleBackButton != null && <FontAwesomeIcon className="mx-2" icon={faArrowLeft}></FontAwesomeIcon>}
+                                {titleBackButton !== null && <FontAwesomeIcon className="mx-2" icon={faArrowLeft}></FontAwesomeIcon>}
                                 {titleBackButton}
                             </Link>
                             <div style={{ minHeight: "inherit" }} className="flex-wrap md:flex w-full">
